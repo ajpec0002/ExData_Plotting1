@@ -32,6 +32,9 @@ hpc_dt <- subset(hpc_dt, is.na(hpc_dt$Global_active_power) == FALSE & is.na(hpc_
 #Combine date and time columns using strptime and as.POSIXct.
 hpc_dt[, datetime:=as.POSIXct(strptime(paste(hpc_dt$Date,hpc_dt$Time,sep=" "), format = "%d/%m/%Y %H:%M:%S"))]
 
+# output file to png, set background to transparent
+png(filename = "plot4.png", bg="transparent")
+
 # Set mfrow to (2,2).
 par(mfrow = c(2, 2))
 
@@ -39,17 +42,13 @@ par(mfrow = c(2, 2))
 # Plot the hpc_dt$Global_active_power over two-day period (01/02/2007 - 02/02/2007)
 # type = "l" line
 # y label = Global Active Power (kilowatts)
-# bg = "transparent"
-# cex.lab=0.75,cex.axis=0.8  (adjust label and axis font size to match the sample png file)
-plot(hpc_dt$datetime,as.numeric(hpc_dt$Global_active_power),type="l",xlab="",ylab="Global Active Power (kilowatts)", bg = "transparent", cex.lab=0.75,cex.axis=0.8)
+plot(hpc_dt$datetime,as.numeric(hpc_dt$Global_active_power),type="l",xlab="",ylab="Global Active Power (kilowatts)")
 
 # 2nd Plot
 # Plot the hpc_dt$Voltage over two-day period (01/02/2007 - 02/02/2007)
 # x label: datetime
 # y label: Voltage
-# bg = "transparent"
-# cex.lab=0.75,cex.axis=0.8  (adjust label and axis font size to match the sample png file)
-plot(hpc_dt$datetime,as.numeric(hpc_dt$Voltage),type="l",xlab="datetime",ylab="Voltage", bg = "transparent", cex.lab=0.75,cex.axis=0.8)
+plot(hpc_dt$datetime,as.numeric(hpc_dt$Voltage),type="l",xlab="datetime",ylab="Voltage")
 
 
 # 3rd PLot
@@ -57,9 +56,7 @@ plot(hpc_dt$datetime,as.numeric(hpc_dt$Voltage),type="l",xlab="datetime",ylab="V
 # type = "l" line
 # col= "black"
 # y label: Energy sub metering
-# bg = "transparent"
-# cex.lab=0.75,cex.axis=0.8  (adjust label and axis font size to match the sample png file)
-plot(hpc_dt$datetime,as.numeric(hpc_dt$Sub_metering_1),type="l", col="black", xlab="",ylab="Energy sub metering", bg = "transparent", cex.lab=0.75,cex.axis=0.8)
+plot(hpc_dt$datetime,as.numeric(hpc_dt$Sub_metering_1),type="l", xlab="",ylab="Energy sub metering")
 
 #Add Sub_metering_2
 lines(hpc_dt$datetime,hpc_dt$Sub_metering_2,col="red")
@@ -68,21 +65,15 @@ lines(hpc_dt$datetime,hpc_dt$Sub_metering_2,col="red")
 lines(hpc_dt$datetime,hpc_dt$Sub_metering_3,col="blue")
 
 #Add legend
-legend("topright", bty = "n", lwd = 1, col = c("black","red","blue"), legend = c("Sub_metering_1", "Sub_metering_2","Sub_metering_3"),cex=0.8,yjust=0.5)
+legend("topright" ,box.lty=0, lwd = 1, col = c("black","red","blue"), legend = c("Sub_metering_1", "Sub_metering_2","Sub_metering_3"))
 
 
 # 4th PLot
 # Plot the hpc_dt$Global_reactive_power over two-day period (01/02/2007 - 02/02/2007)
 # x label: datetime
 # y label: Global_reactive_power
-# bg = "transparent"
-# cex.lab=0.75,cex.axis=0.8  (adjust label and axis font size to match the sample png file)
-plot(hpc_dt$datetime,as.numeric(hpc_dt$Global_reactive_power),type="l",xlab="datetime",ylab="Global_reactive_power", bg = "transparent", cex.lab=0.75,cex.axis=0.8)
+plot(hpc_dt$datetime,as.numeric(hpc_dt$Global_reactive_power),type="l",xlab="datetime",ylab="Global_reactive_power")
 
-
-
-#Copy plot to png file
-dev.copy(png, file = "plot4.png")
 
 #Close png device
 dev.off()

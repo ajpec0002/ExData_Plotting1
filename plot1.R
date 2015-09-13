@@ -26,6 +26,9 @@ hpc_dt$Date <- as.Date(hpc_dt$Date,"%d/%m/%Y")
 # hpc_dt$Date less than or equal to 02 Feb 2007
 hpc_dt <- subset(hpc_dt, is.na(hpc_dt$Global_active_power) == FALSE & is.na(hpc_dt$Date) == FALSE & hpc_dt$Date >= as.Date("01/02/2007","%d/%m/%Y") & hpc_dt$Date <= as.Date("02/02/2007","%d/%m/%Y"))
 
+# output file to png, set background to transparent
+png(filename = "plot1.png", bg="transparent")
+
 # Set mfrow to 1,1,. This is the default but anyway just to make sure.
 par(mfrow = c(1, 1))
 
@@ -33,12 +36,8 @@ par(mfrow = c(1, 1))
 # main title: Global Active Power
 # bar color: red
 # x label: Global Active Power (kilowatts)
-# bg = "transparent"
-# cex.lab=0.75,cex.axis=0.8  (adjust label and axis font size to match the sample png file)
-hist(as.numeric(hpc_dt$Global_active_power),main="Global Active Power", col="red",xlab="Global Active Power (kilowatts)", bg = "transparent", cex.lab=0.75,cex.axis=0.8)
+hist(as.numeric(hpc_dt$Global_active_power),main="Global Active Power", col="red",xlab="Global Active Power (kilowatts)")
 
-#Copy plot to png file
-dev.copy(png, file = "plot1.png")
 
 #Close png device
 dev.off()

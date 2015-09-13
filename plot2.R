@@ -32,18 +32,16 @@ hpc_dt <- subset(hpc_dt, is.na(hpc_dt$Global_active_power) == FALSE & is.na(hpc_
 #Combine date and time columns using strptime and as.POSIXct.
 hpc_dt[, datetime:=as.POSIXct(strptime(paste(hpc_dt$Date,hpc_dt$Time,sep=" "), format = "%d/%m/%Y %H:%M:%S"))]
 
+# output file to png, set background to transparent
+png(filename = "plot2.png", bg="transparent")
+
 # Set mfrow to 1,1,. This is the default but anyway just to make sure.
 par(mfrow = c(1, 1))
 
 #Plot the hpc_dt$Global_active_power over two-day period (01/02/2007 - 02/02/2007)
 # y label: Global Active Power (kilowatts)
-# bg = "transparent"
-# cex.lab=0.75,cex.axis=0.8  (adjust label and axis font size to match the sample png file)
-plot(hpc_dt$datetime,as.numeric(hpc_dt$Global_active_power),type="l",xlab="",ylab="Global Active Power (kilowatts)", bg = "transparent", cex.lab=0.75,cex.axis=0.8)
+plot(hpc_dt$datetime,as.numeric(hpc_dt$Global_active_power),type="l",xlab="",ylab="Global Active Power (kilowatts)")
 
-
-#Copy plot to png file
-dev.copy(png, file = "plot2.png")
 
 #Close png device
 dev.off()
